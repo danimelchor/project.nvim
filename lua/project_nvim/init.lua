@@ -4,5 +4,6 @@ local M = {}
 
 M.setup = config.setup
 M.get_recent_projects = history.get_recent_projects
+M.get_recent_projects_sync = history.get_recent_projects_sync
 
 return M
