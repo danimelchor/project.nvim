@@ -117,6 +117,19 @@ function M.read_projects_from_history()
   end)
 end
 
+function M.read_projects_from_history_sync()
+  local fd = open_history("r")
+  setup_watch()
+  if fd ~= nil then
+    local stat = uv.fs_fstat(fd)
+    if stat ~= nil then
+      local data = uv.fs_read(fd, stat.size, -1)
+      uv.fs_close(fd)
+      deserialize_history(data)
+    end
+  end
+end
+
 local function sanitize_projects()
   local tbl = {}
   if M.recent_projects ~= nil then
@@ -139,6 +152,11 @@ local function sanitize_projects()
 end
 
 function M.get_recent_projects()
+  return sanitize_projects()
+end
+
+function M.get_recent_projects_sync()
+  M.read_projects_from_history_sync()
   return sanitize_projects()
 end
 
