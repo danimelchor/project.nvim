@@ -29,6 +29,11 @@ end
 local function normalise_path(path_to_normalise)
     local normalised_path = path_to_normalise:gsub("\\", "/"):gsub("//", "/")
 
+    -- Remove trailing slash if any
+    if normalised_path:sub(-1) == "/" then
+      normalised_path = normalised_path:sub(1, -2)
+    end
+
     if is_windows then
        normalised_path = normalised_path:sub(1,1):lower()..normalised_path:sub(2)
     end
