@@ -170,7 +170,8 @@ function M.attach_to_lsp()
 end
 
 function M.set_pwd(dir, method)
-  vim.notify("Set CWD to " .. dir .. " using " .. method)
+  vim.notify(vim.inspect(dir))
+
   if dir ~= nil then
     M.last_project = dir
     table.insert(history.session_projects, dir)
