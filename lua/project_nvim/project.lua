@@ -246,7 +246,6 @@ function M.on_buf_enter()
   end
 
   local root, method = M.get_project_root()
-  vim.notify(vim.inspect(root) .. vim.inspect(method))
   M.set_pwd(root, method)
 end
 
