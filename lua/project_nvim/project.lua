@@ -170,12 +170,9 @@ function M.attach_to_lsp()
 end
 
 function M.set_pwd(dir, method)
-  vim.notify(vim.inspect(dir))
-
   if dir ~= nil then
     M.last_project = dir
     table.insert(history.session_projects, dir)
-    vim.notify(vim.inspect(history.session_projects))
 
     if vim.fn.getcwd() ~= dir then
       local scope_chdir = config.options.scope_chdir
@@ -249,6 +246,7 @@ function M.on_buf_enter()
   end
 
   local root, method = M.get_project_root()
+  vim.notify(vim.inspect(root) .. vim.inspect(method))
   M.set_pwd(root, method)
 end
 
