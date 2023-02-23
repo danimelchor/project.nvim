@@ -232,19 +232,23 @@ function M.is_file()
 end
 
 function M.on_buf_enter()
+  vim.notify("on_buf_enter")
   if vim.v.vim_did_enter == 0 then
     return
   end
 
+  vim.notify("on_buf_enter2")
   if not M.is_file() then
     return
   end
 
+  vim.notify("on_buf_enter3")
   local current_dir = vim.fn.expand("%:p:h", true)
   if path.is_excluded(current_dir) then
     return
   end
 
+  vim.notify("on_buf_enter4")
   local root, method = M.get_project_root()
   M.set_pwd(root, method)
 end
