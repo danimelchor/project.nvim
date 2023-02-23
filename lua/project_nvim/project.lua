@@ -170,9 +170,11 @@ function M.attach_to_lsp()
 end
 
 function M.set_pwd(dir, method)
+  vim.notify("Set CWD to " .. dir .. " using " .. method)
   if dir ~= nil then
     M.last_project = dir
     table.insert(history.session_projects, dir)
+    vim.notify(vim.inspect(history.session_projects))
 
     if vim.fn.getcwd() ~= dir then
       local scope_chdir = config.options.scope_chdir
@@ -232,23 +234,19 @@ function M.is_file()
 end
 
 function M.on_buf_enter()
-  vim.notify("on_buf_enter")
   if vim.v.vim_did_enter == 0 then
     return
   end
 
-  vim.notify("on_buf_enter2")
   if not M.is_file() then
     return
   end
 
-  vim.notify("on_buf_enter3")
   local current_dir = vim.fn.expand("%:p:h", true)
   if path.is_excluded(current_dir) then
     return
   end
 
-  vim.notify("on_buf_enter4")
   local root, method = M.get_project_root()
   M.set_pwd(root, method)
 end
